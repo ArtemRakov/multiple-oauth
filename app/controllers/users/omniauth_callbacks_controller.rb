@@ -20,7 +20,6 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
     sign_in_and_redirect user, event: :authetication
     set_flash_message :notice, :success, kind: "Facebook"
-    # flash[:success] = "Facebook"
   end
 
   def auth
