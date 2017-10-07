@@ -4,6 +4,10 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
     if service.present?
       user = service.user
+      service.update(
+        expires_at: Time.at(auth.credentials.expires_at),
+        access_token: auth.credentials.token
+        )
     else
       user = User.create(
         email: auth.info.email,
