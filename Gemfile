@@ -17,6 +17,7 @@ gem 'sass-rails'
 gem 'simple_form'
 gem 'uglifier'
 gem 'omniauth-facebook'
+gem 'koala'
 
 group :development, :test do
   gem 'pry-byebug'
