@@ -20,6 +20,26 @@
   </div>
 <% end %>
 
+<hr>
+
+<p>
+<strong> Facebook </strong>
+  <% if current_user.services.facebook.any? %>
+    Connected
+    <% else %>
+    <%= link_to "Connect", user_facebook_omniauth_authorize_path %>
+  <% end %>
+</p>
+
+<p>
+<strong> Twitter </strong>
+  <% if current_user.services.twitter.any? %>
+    Connected
+    <% else %>
+     <%# link_to "Connect", user_twitter_omniauth_authorize_path %>
+  <% end %>
+</p>
+
 <h3>Cancel my account</h3>
 
 <p>Unhappy? <%= link_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete %></p>
