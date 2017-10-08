@@ -18,6 +18,7 @@ gem 'simple_form'
 gem 'uglifier'
 gem 'omniauth-facebook'
 gem 'koala'
+gem 'omniauth-twitter'
 
 group :development, :test do
   gem 'pry-byebug'
