@@ -1,14 +1,15 @@
 class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   before_action :set_service
   before_action :set_user
+
   attr_reader :service, :user
 
   def facebook
-    handle_auth "facebook"
+    handle_auth 'facebook'
   end
 
   def twitter
-    handle_auth "twitter"
+    handle_auth 'twitter'
   end
 
   private
@@ -21,12 +22,13 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     end
 
     if user_signed_in?
-      flash[:notice] = "Your #{kind} account was connected"
+      flash[:notice] = "Successfully added #{kind} to your account"
       redirect_to edit_user_registration_path
     else
-      sign_in_and_redirect user, event: :authetication
-      set_flash_message :notice, :success, kind: kind
+      sign_in_and_redirect user, event: :authentication
+      flash[:notice] = "Successfully login throw #{kind}"
     end
+
   end
 
   def auth
@@ -37,14 +39,18 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     @service = Service.where(provider: auth.provider, uid: auth.uid).first
   end
 
+
   def set_user
+    # if user sign_in to connect things
+    # if user sign_out to create profile
+    # if user sing_out and profile already exists
     if user_signed_in?
       @user = current_user
     elsif service.present?
       @user = service.user
     elsif User.where(email: auth.info.email).any?
-        flash[:alert] = "An account with this email already exist. Please sign in with this account before connecting your #{auth.provider.titleize} account"
-        redirect_to new_user_session_path
+      flash[:alert] = "You already have profile in our website. Please login throw another social network and connect #{auth.provider} to your account"
+      redirect_to new_user_registration_path
     else
       @user = User.create(create_user)
     end
