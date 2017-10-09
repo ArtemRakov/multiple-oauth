@@ -19,6 +19,7 @@ gem 'uglifier'
 gem 'omniauth-facebook'
 gem 'koala'
 gem 'omniauth-twitter'
+gem 'bootsnap', require: false
 
 group :development, :test do
   gem 'pry-byebug'
